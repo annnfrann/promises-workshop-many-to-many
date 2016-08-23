@@ -3,6 +3,7 @@ var router = express.Router();
 var knex = require('../db/knex');
 var Promise = require('bluebird');
 var helpers = require('../lib/helpers');
+var queries = require('../lib/queries');
 
 function Authors() {
   return knex('authors');
@@ -83,6 +84,9 @@ router.post('/:id', function (req, res, next) {
 })
 
 router.get('/:id', function (req, res, next) {
+  helpers.getAuthorBooks(req.params.id).then(function(data){
+    res.render('authors/show', {author: data.author, books: data.book})
+  })
   // find the author in Authors
   // get all of the authors book_ids from Authors_Books
   // get all of the authors books from BOOKs

@@ -39,7 +39,9 @@ router.post('/', function (req, res, next) {
 })
 
 router.get('/:id/delete', function(req, res, next) {
-  // your code here
+  helpers.getBookAuthors(req.params.id).then(function(book){
+    res.render('books/delete', {book: book.book, authors: book.authors})
+  })
 });
 
 router.post('/:id/delete', function(req, res, next) {
@@ -55,7 +57,9 @@ router.get('/:id/edit', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  // your code here 
+  helpers.getBookAuthors(req.params.id).then(function(book){
+    res.render('books/show', {book: book.book, authors: book.authors})
+  })
 });
 
 router.post('/:id', function(req, res, next) {
